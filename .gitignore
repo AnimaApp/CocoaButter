@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.pyc
+*.swp
+.idea
+node_modules/
+venv/
+env/
+codegenerator/cache
+/cache
+.DS_Store
+static/invite-email/email.html 2.zip
+static/invite-email/email.html 3 - Mobile & Mac.zip
+static/invite-email/email.html 4 - All platforms.zip
+static/invite-email/email.html.zip
+static/invite-email/invite-email.html
