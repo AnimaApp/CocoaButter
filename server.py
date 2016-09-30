@@ -35,7 +35,9 @@ def route_exceptions():
 
 
 if __name__ == "__main__":
-    app.config['MONGODB_SETTINGS'] = {'host': os.environ.get('MONGODB_URI')}
+    app.config['MONGODB_SETTINGS'] = {
+        'host': os.environ.get('MONGODB_URI')
+    }
     MongoEngine(app)
     debug = 'DYNO' not in os.environ
     port = os.environ.get("PORT", "5007")

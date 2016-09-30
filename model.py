@@ -20,7 +20,7 @@ class BaseDocument(Document):
     def to_dict(self):
         dic = self.to_mongo().to_dict()
         dic.pop('_cls')
-        dic['id'] = dic.pop('_id')
+        dic['id'] = str(dic.pop('_id'))
         return dic
 
 
