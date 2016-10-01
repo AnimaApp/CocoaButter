@@ -16,7 +16,7 @@ An easy way to collect and view crashes from real users with from Sketch related
 1. Drop `CocoaButter.js` in your Plugin folder.
 2. ```@import 'CocoaButter.js'``` into your `.cocoascript` files.
 3. Wrap your main function with `try` `catch`
-4. Initialize CocoaButter instance and `report`
+4. Initialize `CocoaButter` instance and `report()`
 ```
 @import 'CocoaButter.js'
 
