@@ -5,7 +5,7 @@ Crash Reporting for Sketch Plugins.
 
 ## Motivation
 
-There is currently no easy way to collect crash reports from Sketch plugins. We wanted an easy way to collect and view crashes from real users.
+An easy way to collect and view crashes from real users that has the information from Sketch plugins such as the current page artboards and exception message.
 
 ## Deployment
 You can deploy your own CocoaButter instance for free on Heroku with a single click, no coding required.
