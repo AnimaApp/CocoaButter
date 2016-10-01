@@ -7,7 +7,7 @@ Crash Reporting for Sketch Plugins.
 
 There is currently no easy way to collect crash reports from Sketch plugins. We wanted an easy way to collect and view crashes from real users.
 
-## Deploy 
+## Deployment
 You can deploy your own CocoaButter instance for free on Heroku with a single click, no coding required.
 
 1. [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
@@ -18,9 +18,23 @@ You can deploy your own CocoaButter instance for free on Heroku with a single cl
 4. Click  
 <kbd>![](https://cl.ly/1U2d0V2p2g2q/Screen%20Shot%202016-10-01%20at%209.59.05%20AM.png)</kbd>
 
+## Integration
 
-
-
+1. Drop `CocoaButter.js` in your Plugin folder.
+2. ```@import 'CocoaButter.js'``` into your `.cocoascript` files.
+4. Initialize a `CocoaButter` instance:
+3. Wrap your main function with `try` `catch`:
+```
+var onRun = function(context) {
+  try {
+    ...<your code>...
+  }
+  catch (e) {
+    var cocoabutter = CocoaButter()
+    cocoabutter.report(e, context)
+  }
+}
+```
 
 ## License
 
