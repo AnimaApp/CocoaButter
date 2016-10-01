@@ -13,7 +13,7 @@ An easy way to collect and view crash reports from real users with Sketch relate
 
 ## Integration
 
-1. Drop `CocoaButter.js` in your Plugin folder.
+1. Drop [CocoaButter.js](https://raw.githubusercontent.com/AnimaApp/CocoaButter/master/CocoaButter.js) in your Plugin folder.
 2. ```@import 'CocoaButter.js'``` into your `.cocoascript` files.
 3. Wrap your plugin code with `try` `catch`
 4. Initialize `CocoaButter` instance and `report()`
