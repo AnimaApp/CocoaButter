@@ -1,5 +1,5 @@
 import datetime
-from mongoengine import Document, DateTimeField, BooleanField, StringField
+from mongoengine import Document, DateTimeField, BooleanField, StringField, DictField
 
 
 class BaseDocument(Document):
@@ -28,4 +28,4 @@ class PluginException(BaseDocument):
 
     message = StringField()
     stacktrace = StringField()
-    document= StringField()
+    page = DictField()

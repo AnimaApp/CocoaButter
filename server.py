@@ -1,3 +1,4 @@
+import json
 from flask_mongoengine import MongoEngine
 import os
 from auth import requires_auth
@@ -12,7 +13,7 @@ app = Flask(__name__)
 @requires_auth
 def route_home():
     exceptions = PluginException.objects.order_by('-created_at')
-    return render_template('home.html', exceptions=exceptions)
+    return render_template('index.html', exceptions=exceptions)
 
 
 @app.route("/exceptions/", methods=['GET', 'POST'])
@@ -23,8 +24,8 @@ def route_exceptions():
 
         message = request.json.get('message')
         stacktrace = request.json.get('stacktrace')
-        document = request.json.get('document')
-        exception = PluginException(message=message, stacktrace=stacktrace, document=document)
+        page = request.json.get('page')
+        exception = PluginException(message=message, stacktrace=stacktrace, page=page)
         exception.save()
         return jsonify(exception.to_dict())
 

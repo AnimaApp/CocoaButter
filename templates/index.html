@@ -35,7 +35,7 @@
                   </h4>
                 </div>
                 <div id="collapse{{loop.index}}" class="panel-collapse collapse">
-                  <div class="panel-body">{{ exception.stacktrace }}</div>
+                  <div class="panel-body">{{ exception.page|tojson|safe }}</div>
                   <div class="panel-footer">{{ exception.created_at }}</div>
                 </div>
               </div>
