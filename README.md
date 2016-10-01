@@ -1,7 +1,7 @@
 # CocoaButter
 Crash Reporting for Sketch Plugins.
 
-<kbd>![](https://cl.ly/1b0H2i3z163D/ezgif-1564281746.gif)</kbd>
+<kbd>![](https://cl.ly/0I1r0k3l013M/ezgif-1369415000.gif)</kbd>
 
 <kbd>![](https://cl.ly/2j471S1I1m2n/Screen%20Shot%202016-10-01%20at%201.12.20%20PM.png)</kbd>
 
