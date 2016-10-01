@@ -9,7 +9,7 @@ Demo: https://cocoabutter.herokuapp.com
 
 ## Motivation
 
-An easy way to collect and view crashes from real users with from Sketch related details such as the current page artboards and exception message.
+An easy way to collect and view crash reports from real users with from Sketch related details such as the current page artboards and exception message.
 
 ## Integration
 
