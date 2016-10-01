@@ -3,6 +3,8 @@ Crash Reporting for Sketch Plugins.
 
 ![](https://cl.ly/1b0H2i3z163D/ezgif-1564281746.gif)
 
+Demo: https://cocoabutter.herokuapp.com
+
 ## Motivation
 
 An easy way to collect and view crashes from real users with from Sketch related details such as the current page artboards and exception message.
