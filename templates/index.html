@@ -31,7 +31,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#collapse{{loop.index}}">{{ exception.message }}</a>
+                            <a data-toggle="collapse" href="#collapse{{loop.index}}">
+                                [{{ exception.created_at.strftime('%m/%d/%y %H:%M') }}] Exception: {{ exception.message }}
+                            </a>
                         </h4>
                     </div>
                     <div id="collapse{{loop.index}}" class="panel-collapse collapse">
@@ -41,7 +43,6 @@
                             Page:
                             <pre>{{ json_pages[loop.index-1]|e|safe }}</pre>
                         </div>
-                        <div class="panel-footer">{{ exception.created_at }}</div>
                     </div>
                 </div>
             </div>
