@@ -12,15 +12,15 @@ You can deploy your own CocoaButter instance for free on Heroku with a single cl
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 Optionally pick a name for your server:
-![](https://cl.ly/0X07171G0T1E/Screen%20Shot%202016-10-01%20at%209.06.38%20AM.png)
+<kbd>![](https://cl.ly/0X07171G0T1E/Screen%20Shot%202016-10-01%20at%209.06.38%20AM.png)</kbd>
 
 Optionally pick a name for your server:
 
 Pick a username and a password for your instance:
-![](https://cl.ly/18072C2V3d0c/download/Screen%20Shot%202016-10-01%20at%209.06.30%20AM.png)
+<kbd>![](https://cl.ly/18072C2V3d0c/download/Screen%20Shot%202016-10-01%20at%209.06.30%20AM.png)</kbd>
 
 Click  
-![](https://cl.ly/0N3F0Y0B2P0r/Screen%20Shot%202016-10-01%20at%209.59.05%20AM.png)
+<kbd>![](https://cl.ly/0N3F0Y0B2P0r/Screen%20Shot%202016-10-01%20at%209.59.05%20AM.png)</kbd>
 
 
 
