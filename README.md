@@ -9,6 +9,29 @@ Demo: https://cocoabutter.herokuapp.com
 
 An easy way to collect and view crashes from real users with from Sketch related details such as the current page artboards and exception message.
 
+## Integration
+
+1. Drop `CocoaButter.js` in your Plugin folder.
+2. ```@import 'CocoaButter.js'``` into your `.cocoascript` files.
+3. Wrap your main function with `try` `catch`
+4. Initialize CocoaButter instance and `report`
+```
+@import 'CocoaButter.js'
+
+var onRun = function(context) {
+  try {
+    [self forceCrash]
+  }
+  catch (e) {
+    var cocoabutter = new CocoaButter()
+    cocoabutter.baseURL = "http://cocoabutter.herokuapp.com"
+    cocoabutter.username = "11"
+    cocoabutter.password = "22"
+    cocoabutter.report(e, context)
+  }
+}
+```
+
 ## Deployment
 You can deploy your own CocoaButter instance for free on Heroku with a single click, no coding required.
 
@@ -19,24 +42,6 @@ You can deploy your own CocoaButter instance for free on Heroku with a single cl
 <kbd>![](https://cl.ly/2F2K2b2f3e1Y/Screen%20Shot%202016-10-01%20at%209.06.30%20AM.png)</kbd>
 4. Click  
 <kbd>![](https://cl.ly/1U2d0V2p2g2q/Screen%20Shot%202016-10-01%20at%209.59.05%20AM.png)</kbd>
-
-## Integration
-
-1. Drop `CocoaButter.js` in your Plugin folder.
-2. ```@import 'CocoaButter.js'``` into your `.cocoascript` files.
-4. Initialize a `CocoaButter` instance:
-3. Wrap your main function with `try` `catch`:
-```
-var onRun = function(context) {
-  try {
-    ...<your code>...
-  }
-  catch (e) {
-    var cocoabutter = CocoaButter()
-    cocoabutter.report(e, context)
-  }
-}
-```
 
 ## Contributing
 
