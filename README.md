@@ -1,5 +1,6 @@
 # CocoaButter
 Crash Reporting for Sketch Plugins.
+
 ![](https://cl.ly/1b0H2i3z163D/ezgif-1564281746.gif)
 
 ## Motivation
