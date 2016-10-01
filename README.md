@@ -16,7 +16,7 @@ You can deploy your own CocoaButter instance for free on Heroku with a single cl
 3. Pick a username and a password for your instance:  
 <kbd>![](https://cl.ly/3M1n2c0V3I1u/Screen%20Shot%202016-10-01%20at%209.06.30%20AM.png)</kbd>
 4. Click  
-<kbd>![](https://cl.ly/0N3F0Y0B2P0r/Screen%20Shot%202016-10-01%20at%209.59.05%20AM.png)</kbd>
+<kbd>![](https://cl.ly/1U2d0V2p2g2q/Screen%20Shot%202016-10-01%20at%209.59.05%20AM.png)</kbd>
 
 
 
