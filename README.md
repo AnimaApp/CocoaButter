@@ -9,17 +9,12 @@ There is currently no easy way to collect crash reports from Sketch plugins. We 
 ## Deploy 
 You can deploy your own CocoaButter instance for free on Heroku with a single click, no coding required.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-Optionally pick a name for your server:
-<kbd>![](https://cl.ly/0X07171G0T1E/Screen%20Shot%202016-10-01%20at%209.06.38%20AM.png)</kbd>
-
-Optionally pick a name for your server:
-
-Pick a username and a password for your instance:
-<kbd>![](https://cl.ly/18072C2V3d0c/download/Screen%20Shot%202016-10-01%20at%209.06.30%20AM.png)</kbd>
-
-Click  
+1. [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+2. Optionally pick a name for your server:  
+<kbd>![](https://cl.ly/040U0b1z2A3S/Screen%20Shot%202016-10-01%20at%209.06.38%20AM.png)</kbd>
+3. Pick a username and a password for your instance:  
+<kbd>![](https://cl.ly/3M1n2c0V3I1u/Screen%20Shot%202016-10-01%20at%209.06.30%20AM.png)</kbd>
+4. Click  
 <kbd>![](https://cl.ly/0N3F0Y0B2P0r/Screen%20Shot%202016-10-01%20at%209.59.05%20AM.png)</kbd>
 
 
