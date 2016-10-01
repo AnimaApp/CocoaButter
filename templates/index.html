@@ -10,35 +10,40 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
 </head>
 <body>
 <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        CocoaButter - Sketch Plugin Crash Reports
-      </a>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                CocoaButter - Sketch Plugin Crash Reports
+            </a>
+        </div>
     </div>
-  </div>
 </nav>
 <div class="container">
     {% for exception in exceptions %}
     <div class="row">
         <div class="col-xs-12">
             <div class="panel-group">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse{{loop.index}}">{{ exception.message }}</a>
-                  </h4>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse{{loop.index}}">{{ exception.message }}</a>
+                        </h4>
+                    </div>
+                    <div id="collapse{{loop.index}}" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Position:
+                            <pre>{{ json_positions[loop.index-1]|e|safe }}</pre>
+                            Page:
+                            <pre>{{ json_pages[loop.index-1]|e|safe }}</pre>
+                        </div>
+                        <div class="panel-footer">{{ exception.created_at }}</div>
+                    </div>
                 </div>
-                <div id="collapse{{loop.index}}" class="panel-collapse collapse">
-                  <div class="panel-body">{{ exception.page|tojson|safe }}</div>
-                  <div class="panel-footer">{{ exception.created_at }}</div>
-                </div>
-              </div>
             </div>
         </div>
     </div>

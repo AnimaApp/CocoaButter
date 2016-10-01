@@ -29,3 +29,4 @@ class PluginException(BaseDocument):
     message = StringField()
     stacktrace = StringField()
     page = DictField()
+    position = DictField()
