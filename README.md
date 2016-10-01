@@ -33,7 +33,7 @@ var onRun = function(context) {
 ```
 
 ## Deployment
-You can deploy your own CocoaButter instance for free on Heroku with a single click, no coding required.
+You can deploy your own CocoaButter server for free on Heroku with a single click, no coding required.
 
 1. [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 2. Optionally pick a name for your server:  
