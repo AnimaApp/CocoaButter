@@ -24,9 +24,9 @@ var onRun = function(context) {
   }
   catch (e) {
     var cocoabutter = new CocoaButter()
-    cocoabutter.baseURL = "http://cocoabutter.herokuapp.com"
-    cocoabutter.username = "11"
-    cocoabutter.password = "22"
+    cocoabutter.baseURL = "<your cocoabutter server url i.e http://cocoabutter.herokuapp.com"
+    cocoabutter.username = "<your username>"
+    cocoabutter.password = "<your password>"
     cocoabutter.report(e, context)
   }
 }
