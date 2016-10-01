@@ -1,20 +1,21 @@
 {
-  "name": "Cocoa Butter",
-  "description": "Crash Reporting for Sketch Plugins",
-  "repository": "https://github.com/AnimaApp/CocoaButter",
-  "keywords": ["sketch", "plugins", "anima", "crash"],
-  "success_url": "/",
-  "env": {
-    "AUTH_USERNAME": {
-      "description": "Pick a username to login to your crash reports dashboard"
+    "name": "Cocoa Butter",
+    "description": "Crash Reporting for Sketch Plugins",
+    "repository": "https://github.com/AnimaApp/CocoaButter",
+    "keywords": ["sketch", "plugins", "anima", "crash"],
+    "logo": "https://www.animaapp.com/img/logo-stroke.png",
+    "success_url": "/",
+    "env": {
+        "AUTH_USERNAME": {
+            "description": "Pick a username to login to your crash reports dashboard"
+        },
+        "AUTH_PASSWORD": {
+            "description": "Pick a password to login to your crash reports dashboard"
+        }
     },
-    "AUTH_PASSWORD": {
-      "description": "Pick a password to login to your crash reports dashboard"
-    }
-  },
-  "addons": [
-    {
-      "plan": "mongolab:sandbox"
-    }
-  ]
+    "addons": [
+        {
+            "plan": "mongolab:sandbox"
+        }
+    ]
 }
