@@ -20,7 +20,7 @@ An easy way to collect and view crashes from real users with from Sketch related
 
 var onRun = function(context) {
   try {
-    [self forceCrash]
+    ...<your plugin code>...
   }
   catch (e) {
     var cocoabutter = new CocoaButter()
