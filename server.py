@@ -1,4 +1,3 @@
-import json
 from flask_mongoengine import MongoEngine
 import os
 from auth import requires_auth
@@ -7,6 +6,8 @@ from model import PluginException
 
 
 app = Flask(__name__)
+app.config['MONGODB_SETTINGS'] = {'host': os.environ.get('MONGODB_URI')}
+MongoEngine(app)
 
 
 @app.route("/")
@@ -36,11 +37,7 @@ def route_exceptions():
 
 
 if __name__ == "__main__":
-    app.config['MONGODB_SETTINGS'] = {
-        'host': os.environ.get('MONGODB_URI'),
-        'alias': 'default'
-    }
-    MongoEngine(app)
+
     debug = 'DYNO' not in os.environ
     port = os.environ.get("PORT", "5007")
     app.run(host="0.0.0.0", port=int(port), use_reloader=False, debug=debug)

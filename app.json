@@ -3,6 +3,7 @@
   "description": "Crash Reporting for Sketch Plugins",
   "repository": "https://github.com/AnimaApp/CocoaButter",
   "keywords": ["sketch", "plugins", "anima", "crash"],
+  "success_url": "/",
   "env": {
     "AUTH_USERNAME": {
       "description": "Pick a username to login to your crash reports dashboard"
