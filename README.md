@@ -45,6 +45,11 @@ You can deploy your own CocoaButter server for free on Heroku with a single clic
 4. Click  
 <kbd>![](https://cl.ly/1U2d0V2p2g2q/Screen%20Shot%202016-10-01%20at%209.59.05%20AM.png)</kbd>
 
+## CocoaButter as a Service
+
+If you want CococButter as a Service rather than deploying your own upvote this issue:  
+https://github.com/AnimaApp/CocoaButter/issues/1
+
 ## Contributing
 
 Contributions are welcome 🎉
