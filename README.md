@@ -1,3 +1,5 @@
+[![Slack Status](http://slack.animaapp.com/badge.svg)](http://slack.animaapp.com)
+
 # CocoaButter
 Crash Reporting for Sketch Plugins.
 
