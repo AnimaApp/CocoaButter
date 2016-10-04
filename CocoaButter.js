@@ -34,9 +34,7 @@ CocoaButter.prototype.report = function(exception, context) {
 };
 
 CocoaButter.prototype.alert = function(message, informativeText) {
-    var alert = [
-        [NSAlert alloc] init
-    ];
+    var alert = [[NSAlert alloc] init];
     [alert setMessageText: message];
     [alert addButtonWithTitle: "Dismiss"];
     if (informativeText != undefined) {
