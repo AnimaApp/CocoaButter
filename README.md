@@ -1,7 +1,7 @@
 [![Slack Status](http://slack.animaapp.com/badge.svg)](http://slack.animaapp.com)
 [![apm](https://img.shields.io/apm/l/vim-mode.svg?maxAge=2592000)]()
-[![GitHub stars](https://img.shields.io/github/stars/animaapp/cocoabutter.svg?style=social&label=Star&maxAge=2592000)]()
-[![Twitter Follow](https://img.shields.io/twitter/follow/animaapp.svg?style=social&label=Follow&maxAge=2592000)]()
+[![GitHub stars](https://img.shields.io/github/stars/animaapp/CocoaButter.svg?style=social&label=Star&maxAge=2592000)](https://github.com/AnimaApp/CocoaButter/stargazers)
+[![Twitter Follow](https://img.shields.io/twitter/follow/animaapp.svg?style=social&label=Follow&maxAge=2592000)](https://twitter.com/@animaapp)
 
 # CocoaButter
 Crash Reporting for Sketch Plugins.
