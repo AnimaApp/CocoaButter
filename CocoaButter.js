@@ -1,10 +1,27 @@
+// CocoaButter Readme: https://github.com/AnimaApp/CocoaButter
+
 function CocoaButter() {}
 
-CocoaButter.prototype.report = function(exception, context) {
+CocoaButter.prototype.report = function(exception, context, optionalAlertTitle, optionalAlertMessage) {
+    try {
+        this.reportInternal(exception, context, optionalAlertTitle, optionalAlertMessage);
+    }
+    catch (e) {
+        log("[CocoaButter] CocoaButter.prototype.report Failed: " + e);
+    }
+}
 
-    log("[CocoaButter] " + exception)
+CocoaButter.prototype.reportInternal = function(exception, context, optionalAlertTitle, optionalAlertMessage) {
+    
+    var scriptMap = new CocoaButterScriptMap()
+    var stackTrace = scriptMap.trace(exception)
+
+    log("[CocoaButter] " + exception + "\n" + stackTrace)
     log("[CocoaButter] reporting crash...")
-    this.alert("Apologies but something went wrong!", "We've sent a report to help fix it. Thank you.")
+    
+    optionalAlertTitle = optionalAlertTitle != undefined ? optionalAlertTitle : "Apologies but something went wrong!";
+    optionalAlertMessage = optionalAlertMessage != undefined ? optionalAlertMessage : "Apologies but something went wrong!";
+    this.alert(optionalAlertTitle, optionalAlertMessage)
 
     var url = [NSURL URLWithString: this.baseURL + "/exceptions/"]
     var request = [NSMutableURLRequest requestWithURL: url cachePolicy: NSURLRequestReloadIgnoringCacheData timeoutInterval: 60]
@@ -13,22 +30,21 @@ CocoaButter.prototype.report = function(exception, context) {
             forHTTPHeaderField: "Content-Type"
         ]
         [request setValue: this.makeBaseAuth(this.username, this.password) forHTTPHeaderField: "Authorization"]
-
+            
     var parameter = NSDictionary.alloc().initWithObjectsAndKeys(
         exception.message, "message",
-        exception, "position",
+        {stackTrace: stackTrace.split("\n")}, "position",
         context.document.currentPage().treeAsDictionary(), "page", nil)
     var postData = [NSJSONSerialization dataWithJSONObject: parameter options: 0 error: nil]
         [request setHTTPBody: postData]
-
     var response = MOPointer.alloc().init()
     var error = MOPointer.alloc().init()
     var data = [NSURLConnection sendSynchronousRequest: request returningResponse: response error: error]
     if (error.value() == nil && data != nil) {
-        var res = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableLeaves error: nil]
+        // var res = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableLeaves error: nil]
         log("[CocoaButter] Successfully reported crash.")
     } else {
-        var res = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableLeaves error: nil]
+        // var res = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableLeaves error: nil]
         log("[CocoaButter] Failed to report: " + error.value())
     }
 };
@@ -179,4 +195,163 @@ var Base64 = {
         return string;
     }
 
+}
+
+// CocoaButterScriptMap Stiches all script imports like cocoascript does, allowing a readable stack trace
+function CocoaButterScriptMap() {}
+
+CocoaButterScriptMap.prototype.trace = function(err) {
+    try {
+        var unifiedScriptRows = this.unifiedScriptRowsForTrace()
+        var stackItems = err.stack.split("\n");
+        var resLines = [];      
+        for (var i = 0; i < stackItems.length; i++) {
+            var stackItem = stackItems[i];
+            var scriptRow = parseInt(stackItem.split("@")[1].split(":")[1]);    
+            var line = stackItem.split("@")[0] + " @ " + unifiedScriptRows[scriptRow-1];
+            resLines.push(line);
+        }   
+        return resLines.join("\n");
+    }
+    catch (e) {
+        log("[CocoaButter] CocoaButterScriptMap.prototype.trace(error) Failed: " + e.message);
+        return err.stack;
+    }
+}
+
+// unifiedScriptForTrace: Collecting all scripts to a single script, responding to stack trace lines
+CocoaButterScriptMap.prototype.unifiedScriptForTrace = function() {
+    return this.unifiedScriptRowsForTrace().join("\n");
+}
+
+CocoaButterScriptMap.prototype.unifiedScriptRowsForTrace = function() {
+    try {
+        var mainScriptFilePath = this.mainScriptFilePath();
+        var scriptBasePath = mainScriptFilePath.substring(0, mainScriptFilePath.lastIndexOf("/") + 1);
+        var mainScriptName = mainScriptFilePath.substring(scriptBasePath.length);
+        var res = this.appendScripts(scriptBasePath, mainScriptFilePath, mainScriptName);
+        return res;
+    }
+    catch (e) {
+        log("[CocoaButter] CocoaButterScriptMap.prototype.unifiedScriptRowsForTrace() Failed: " + e.message);
+        return "";
+    }
+};
+
+CocoaButterScriptMap.prototype.appendScripts = function(basePath, mainScriptPath, mainScriptName) {
+    var appendedScriptPaths = [mainScriptPath];
+    var mainScriptCode = this.loadFile(mainScriptPath);
+    var resScriptCodeLines = mainScriptCode.split("\n");
+    resScriptCodeLines = this.addRowNumberAndScriptName(resScriptCodeLines, mainScriptName);
+
+    // insert imports in-place
+    for (var line = 0; line < resScriptCodeLines.length; line++) {
+        var currentScriptRelativePath = this.getImportRelativePath(resScriptCodeLines[line]);
+        if (currentScriptRelativePath == null || currentScriptRelativePath == nil) {
+            continue;
+        };
+        var currentScriptFilePath = basePath + currentScriptRelativePath;
+        
+        var shouldIgnoreRepeatingImport = (appendedScriptPaths.filter(function(path) { return path == currentScriptFilePath; }).length > 0);
+        if (shouldIgnoreRepeatingImport) {
+            continue;
+        }
+        
+        appendedScriptPaths.push(currentScriptFilePath);
+        var currentScriptCode = this.loadFile(currentScriptFilePath);           
+        var currentScriptCodeLines = currentScriptCode.split("\n");
+        currentScriptCodeLines = this.addRowNumberAndScriptName(currentScriptCodeLines, currentScriptRelativePath);
+        var beforeCurrent = resScriptCodeLines.slice(0, line+1);
+        var afterCurrent = resScriptCodeLines.slice(line+1);
+        resScriptCodeLines = beforeCurrent.concat(currentScriptCodeLines).concat(afterCurrent);     
+    }
+    
+    return resScriptCodeLines;
+}
+
+CocoaButterScriptMap.prototype.getImportRelativePath = function(row) {
+    var imports = row.match(/import[\s]*[\'\"]([^\'\"]*)[\'\"]/gi);
+    if (imports == null || imports.length < 1) {
+        return null;
+    }
+    var parts = imports[0].split("'");
+    parts = parts.length >= 2 ? parts : imports[0].split('"');
+    return parts[1];
+}                                         
+
+CocoaButterScriptMap.prototype.addRowNumberAndScriptName = function(rows, scriptName) {
+    res = []
+    for(var rowNum = 0; rowNum < rows.length; rowNum++) {
+        var row = rows[rowNum];
+        row = "[" + scriptName + ":" + (rowNum+1) + "] " + row;
+        res.push(row);
+    }
+    return res;
+}
+
+// usedScripts: Collecting all scripts to an array
+CocoaButterScriptMap.prototype.usedScripts = function() {   
+    var mainScriptFilePath = this.mainScriptFilePath();
+    var scriptBasePath = mainScriptFilePath.substring(0, mainScriptFilePath.lastIndexOf("/") + 1);
+    var scriptRelativePath = mainScriptFilePath.substring(scriptBasePath.length);   
+    var res = [];
+    this.collectScripts(scriptBasePath, res, scriptRelativePath);
+    return res;
+};
+
+CocoaButterScriptMap.prototype.collectScripts = function(basePath, accumulator, scriptRelativePath, recurseLevel) {
+    recurseLevel = recurseLevel != undefined ? recurseLevel : 0;
+    if (recurseLevel >= 100) {
+        return;
+    }   
+    var scriptFilePath = basePath + scriptRelativePath;
+    
+    // Prevet duplicates
+    for (var i = 0; i < accumulator.length; i++) {
+        if (accumulator[i].scriptFilePath == scriptFilePath) {
+            // log("[CocoaButterScriptMap] Already listed: " + scriptFilePath)
+            return;
+        }
+    }   
+
+    // Script descriptor
+    var scriptCode = this.loadFile(scriptFilePath); 
+    var scriptCodeLines = scriptCode.split("\n").length;
+    var script = {
+        scriptFilePath: scriptFilePath,
+        scriptCode : scriptCode,
+        scriptCodeLines : scriptCodeLines
+    }
+    
+    // Recurse scan
+    var importsRelativePaths = this.importsRelativePaths(scriptCode)
+    for (var i = 0; i < importsRelativePaths.length; i++) {
+        this.collectScripts(basePath, accumulator, importsRelativePaths[i], recurseLevel + 1);
+    }
+
+    accumulator.push(script);
+}
+
+CocoaButterScriptMap.prototype.importsRelativePaths = function(scriptCode) {
+    var imports = scriptCode.match(/import[\s]*[\'\"]([^\'\"]*)[\'\"]/gi);
+    if (imports == null) {
+        return [];
+    }
+    var res = [];
+    for (var i = 0; i < imports.length; i++) {
+        var parts = imports[i].split("'");
+        parts = parts.length >= 2 ? parts : imports[i].split('"');
+        res.push(parts[1]);
+    }
+    return res;
+ }
+
+CocoaButterScriptMap.prototype.loadFile = function(filePath) {
+    return [NSString stringWithContentsOfFile:NSString.stringWithString(filePath) encoding:4 error:nil].toString().replace(/\r/g, "");  
+}
+
+CocoaButterScriptMap.prototype.mainScriptFilePath = function() {
+    var err = new Error();
+    var scriptFilePath = err.stack.split("\n")[0].split("@")[1].split(":")[0];
+    return scriptFilePath;
 }
